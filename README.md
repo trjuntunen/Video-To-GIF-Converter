@@ -10,3 +10,4 @@ python vidToGif.py videoFileNametoConvert.mp4 outputFile.gif
 <strong>Dependencies:</strong>
 
 MoviePy - https://zulko.github.io/moviepy/index.html
+Gifsicle - https://www.lcdf.org/gifsicle/
