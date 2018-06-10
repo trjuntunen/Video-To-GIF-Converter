@@ -8,5 +8,7 @@ Converts any video file to an animated GIF. Example shown uses .mp4, but any for
 python vidToGif.py videoFileNametoConvert.mp4 outputFile.gif
 
 <strong>Dependencies:</strong>
-Gifsicle - https://www.lcdf.org/gifsicle/
+
+Gifsicle - https://www.lcdf.org/gifsicle/ 
+
 MoviePy - https://zulko.github.io/moviepy/index.html
