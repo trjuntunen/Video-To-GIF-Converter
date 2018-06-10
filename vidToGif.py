@@ -30,15 +30,15 @@ def writeGif(clip, outputFileName):
 def videoFileDoesExist(videoFile):
 	if os.path.isfile(videoFile):
 		return True
-	print("Video file doesn't exist.")
-	return False
+		print("Video file doesn't exist.")
+		return False
 
 # If the given output file name does not contain .gif
 # at the end, then add it.
 def validateOutputFileName(outputFileName):
 	if outputFileName[-4:] != ".gif":
 		outputFileName += ".gif"
-	return outputFileName
+		return outputFileName
 
 # Call the main method to start the program.
 main()
