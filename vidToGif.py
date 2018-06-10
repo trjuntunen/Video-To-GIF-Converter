@@ -26,6 +26,7 @@ def validateCommandLineArgumentLength():
 # Write a gif from the given clip to the given output file.
 def writeGif(clip, outputFileName):
 	clip.write_gif(outputFileName, fps=20)
+	print(outputFileName,"created successfully.")
 
 # Check if the video file exists.
 def videoFileDoesExist(videoFile):
@@ -45,7 +46,7 @@ def validateOutputFileName(outputFileName):
 def optimizeOutputFile(outputFileName):
 	command = "gifsicle --batch --optimize=3 --colors 256 " + outputFileName
 	os.system(command)
-	print(outputFileName,"created and optimized successfully!")
+	print(outputFileName,"optimized successfully.")
 
 # Call the main method to start the program.
 main()
