@@ -12,10 +12,13 @@ def main():
 	clip = sys.argv[1]
 	outputFileName = sys.argv[2]
 
-	# If the video file exists, then write it to the given output file.
-	if videoFileDoesExist(clip):
-		writeGif(VideoFileClip(clip), validateOutputFileName(outputFileName))
-		optimizeOutputFile(validateOutputFileName(outputFileName))
+	# If the video file exists, then validate the output file name
+	# and write and then optimize the gif
+	if videoFileExists(clip):
+		outputFileName = validateOutputFileName(outputFileName)
+		writeGif(VideoFileClip(clip), outputFileName)
+		optimizeOutputFile(outputFileName)
+
 
 # Validate command line argument length, and exit if invalid.
 def validateCommandLineArgumentLength():
@@ -29,18 +32,18 @@ def writeGif(clip, outputFileName):
 	print(outputFileName,"created successfully.")
 
 # Check if the video file exists.
-def videoFileDoesExist(videoFile):
+def videoFileExists(videoFile):
 	if os.path.isfile(videoFile):
 		return True
-		print("Video file doesn't exist.")
-		return False
+	print("Video file doesn't exist.")
+	return False
 
 # If the given output file name does not contain .gif
 # at the end, then add it.
 def validateOutputFileName(outputFileName):
 	if outputFileName[-4:] != ".gif":
 		outputFileName += ".gif"
-		return outputFileName
+	return outputFileName
 
 # Uses Gifsicle library to significantly shrink output GIF file size for better performance.
 def optimizeOutputFile(outputFileName):
