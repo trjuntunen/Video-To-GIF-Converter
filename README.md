@@ -6,7 +6,7 @@ Written in Python. Converts any video file to an animated GIF using the MoviePy 
 <hr>
 
 <strong><h3>Usage:</h3></strong>
-python vidToGif.py videotoConvert.mp4 outputFile.gif
+python vidToGif.py videotoConvert.mp4 outputFile.gif <br>
 python vidToGif.py videoToConvert.mp4 outputFile.gif -i
 
 - If the -i flag is given, uploads to Imgur after.
