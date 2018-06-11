@@ -5,12 +5,12 @@ Written in Python. Converts any video file to an animated GIF using the MoviePy 
 
 <hr>
 
-<strong>Usage:</strong> 
+<strong><h3>Usage:</h3></strong><br>
 python vidToGif.py videoFileNametoConvert.mp4 outputFile.gif
 
 <hr>
 
-<strong>Dependencies:</strong>
+<strong><h3>Dependencies:</h3></strong>
 MoviePy - https://zulko.github.io/moviepy/index.html
 
 Gifsicle - https://www.lcdf.org/gifsicle/
