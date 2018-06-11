@@ -7,31 +7,45 @@ import os
 
 def main():
 
-	validateCommandLineArgumentLength()
+	argsLength = len(sys.argv)
 
+	# Argument length has to be either 3 or 4 depending on 
+	# if the -i flag is given, which uploads the GIF to Imgur.
+	validateCommandLineArgumentLength(argsLength)
+
+	# The video file to convert to a GIF.
 	clip = sys.argv[1]
-	outputFileName = sys.argv[2]
 
-	# If the video file exists, then validate the output file name
-	# and write and then optimize the gif
+	# The name of the output file to write the GIF to.
+	outputFile = sys.argv[2]
+
+	# If the video file exists:
+	# 	- Validate the name
+	#	- Write the GIF to the output file.
+	#	- Optimize the GIF to make the file size smaller.
 	if videoFileExists(clip):
-		outputFileName = validateOutputFileName(outputFileName)
-		writeGif(VideoFileClip(clip), outputFileName)
-		optimizeOutputFile(outputFileName)
+		outputFile = validateoutputFile(outputFile)
+		writeGif(VideoFileClip(clip), outputFile)
+		optimizeOutputFile(outputFile)
+
+		# If the "-i" flag is given as an argument, then upload 
+		# the gif at the end to Imgur.
+		if argsLength == 4 and sys.argv[3] == "-i":
+			uploadGifToImgur(outputFile)
 
 
 # Validate command line argument length, and exit if invalid.
-def validateCommandLineArgumentLength():
-	if len(sys.argv) != 3:
+def validateCommandLineArgumentLength(length):
+	if length != 3 and length != 4:
 		print("Usage: python vidToGif.py <video file to convert> <name of output gif file>")
 		exit(0)
 
 # Write a gif from the given clip to the given output file.
-def writeGif(clip, outputFileName):
-	clip.write_gif(outputFileName, fps=20)
-	print(outputFileName,"created successfully.")
+def writeGif(clip, outputFile):
+	clip.write_gif(outputFile, fps=20)
+	print(outputFile,"created successfully.")
 
-# Check if the video file exists.
+# Check if the video fioutputFileNamele exists.
 def videoFileExists(videoFile):
 	if os.path.isfile(videoFile):
 		return True
@@ -40,16 +54,27 @@ def videoFileExists(videoFile):
 
 # If the given output file name does not contain .gif
 # at the end, then add it.
-def validateOutputFileName(outputFileName):
-	if outputFileName[-4:] != ".gif":
-		outputFileName += ".gif"
-	return outputFileName
+def validateoutputFile(outputFile):
+	if outputFile[-4:] != ".gif":
+		outputFile += ".gif"
+	return outputFile
 
 # Uses Gifsicle library to significantly shrink output GIF file size for better performance.
-def optimizeOutputFile(outputFileName):
-	command = "gifsicle --batch --optimize=3 --colors 256 " + outputFileName
+def optimizeOutputFile(outputFile):
+
+	# Maybe in the future, add functionality to change the scale depending
+	# on the size of the original video, as well as the amount of colors to be
+	# displayed based on the video.
+
+	command = "gifsicle --batch --optimize=3 --scale 0.5 --colors 256 " + outputFile
 	os.system(command)
-	print(outputFileName,"optimized successfully.")
+	print(outputFile,"optimized successfully.")
+
+# Uploads GIF to Imgur and prints to the console the URL.
+def uploadGifToImgur(outputFile):
+	command = "./imgur.sh " + outputFile
+	os.system(command)
+	print(outputFile,"uploading to Imgur successfully.")
 
 # Call the main method to start the program.
 main()
